@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "115044394622",
+    "project_id": "solvednow-d1aa4",
+    "storage_bucket": "solvednow-d1aa4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:115044394622:android:7107e14f51ba5aa7e59a2f",
+        "android_client_info": {
+          "package_name": "dev.arpaap.solved_now"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhdWTXS5Vk3g1VvUcsUZiGIOvzoPEo-Ms"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

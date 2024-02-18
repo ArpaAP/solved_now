@@ -31,12 +31,18 @@ dependencies:
   flutter:
     sdk: flutter
 
+  shared_preferences: ^2.2.2
   package_info_plus: ^5.0.1
   tailwind_colors: ^0.3.1
+  page_transition: ^2.1.0
+  flutter_spinkit: ^5.2.0
+  flutter_tabler_icons: ^1.21.0
+  cached_network_image: ^3.3.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
+  firebase_core: ^2.25.4
 
 dev_dependencies:
   flutter_test:

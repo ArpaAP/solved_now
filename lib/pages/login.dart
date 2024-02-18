@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:tailwind_colors/tailwind_colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:solved_now/layout.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -11,6 +12,22 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
+
+  handleLogin() {
+    if (_formKey.currentState!.validate()) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const Layout(),
+        ),
+        // PageTransition(
+        //   curve: Curves.easeInOut,
+        //   type: PageTransitionType.fade,
+        //   child: const HomePage(),
+        // ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +46,12 @@ class _LoginPageState extends State<LoginPage> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 4),
+            Text(
+              '시작하기 위해 먼저 BOJ 아이디로 로그인해주세요.',
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+            const SizedBox(height: 20),
             Form(
               key: _formKey,
               child: Column(
@@ -37,13 +59,13 @@ class _LoginPageState extends State<LoginPage> {
                   TextFormField(
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
+                        return '아이디를 입력하세요.';
                       }
                       return null;
                     },
                     decoration: InputDecoration(
                       filled: true,
-                      fillColor: TW3Colors.neutral.shade100,
+                      fillColor: const Color.fromRGBO(235, 236, 243, 1),
                       border: OutlineInputBorder(
                         borderSide: BorderSide.none,
                         borderRadius: BorderRadius.circular(10),
@@ -55,13 +77,23 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       hintText: "Baekjoon OJ 아이디",
                     ),
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    onFieldSubmitted: (text) async {
+                      final SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+
+                      await prefs.setString('bojId', text);
+
+                      handleLogin();
+                    },
+                    textInputAction: TextInputAction.go,
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Row(
                     children: [
                       Expanded(
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: handleLogin,
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(
                               Theme.of(context).primaryColor,
@@ -73,7 +105,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                           ),
-                          child: Text(
+                          child: const Text(
                             '로그인',
                             style: TextStyle(
                               color: Colors.white,
@@ -88,24 +120,48 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             const Expanded(child: SizedBox()),
-            FutureBuilder(
-              future: PackageInfo.fromPlatform(),
-              builder:
-                  (BuildContext context, AsyncSnapshot<PackageInfo> snapshot) {
-                final data = snapshot.data;
-
-                return Text(
-                  snapshot.hasData
-                      ? '버전 ${data?.version}  |   빌드 번호 ${data?.buildNumber}'
-                      : '',
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context)
-                      .textTheme
-                      .caption
-                      ?.apply(fontSizeDelta: -2),
-                );
-              },
+            const Divider(height: 32, thickness: 0.5),
+            Text.rich(
+              TextSpan(
+                style: Theme.of(context)
+                    .textTheme
+                    .bodySmall
+                    ?.apply(color: Colors.grey.shade600),
+                children: const [
+                  TextSpan(text: '이 앱은 solved.ac '),
+                  TextSpan(
+                    text: '비공식 ',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  TextSpan(
+                    text: '서비스로서, shiftpsh 및 solved.ac와 '
+                        '어떠한 관련도 없음을 알려드립니다.',
+                  ),
+                ],
+              ),
+              textAlign: TextAlign.center,
             ),
+            const SizedBox(height: 8),
+            Align(
+              alignment: Alignment.center,
+              child: FutureBuilder(
+                future: PackageInfo.fromPlatform(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<PackageInfo> snapshot) {
+                  final data = snapshot.data;
+
+                  return Text(
+                    snapshot.hasData
+                        ? '버전 ${data?.version}  |   빌드 번호 ${data?.buildNumber}'
+                        : '',
+                    style: Theme.of(context).textTheme.bodySmall?.apply(
+                          color: Colors.grey.shade600,
+                          fontSizeDelta: -2,
+                        ),
+                  );
+                },
+              ),
+            )
           ],
         ),
       ),
