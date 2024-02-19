@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
+import 'package:solved_now/pages/home.dart';
 import 'package:solved_now/pages/my.dart';
 import 'package:tailwind_colors/tailwind_colors.dart';
 
-class Layout extends StatefulWidget {
-  const Layout({super.key});
+class MainLayout extends StatefulWidget {
+  const MainLayout({super.key});
 
   @override
-  State<Layout> createState() => _LayoutState();
+  State<MainLayout> createState() => _MainLayoutState();
 }
 
-class _LayoutState extends State<Layout> {
+class _MainLayoutState extends State<MainLayout> {
   final pageController = PageController(initialPage: 0, keepPage: true);
   int _selectedIndex = 0;
 
   static final _pages = <Widget>[
+    const HomePage(),
     const MyPage(),
   ];
 
@@ -67,27 +69,22 @@ class _LayoutState extends State<Layout> {
               BottomNavigationBarItem(
                 icon: Icon(TablerIcons.home),
                 label: '홈',
-                tooltip: '홈',
               ),
               BottomNavigationBarItem(
                 icon: Icon(TablerIcons.book_2),
                 label: '문제',
-                tooltip: '문제',
               ),
               BottomNavigationBarItem(
                 icon: Icon(TablerIcons.message_heart),
                 label: '기여',
-                tooltip: '기여',
               ),
               BottomNavigationBarItem(
                 icon: Icon(TablerIcons.swords),
                 label: '아레나',
-                tooltip: '아레나',
               ),
               BottomNavigationBarItem(
                 icon: Icon(TablerIcons.user_code),
                 label: 'MY',
-                tooltip: 'MY',
               ),
             ],
           ),

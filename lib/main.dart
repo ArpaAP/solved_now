@@ -34,6 +34,8 @@ class MyApp extends StatelessWidget {
           primaryColorLight: const Color.fromRGBO(115, 230, 122, 1),
           useMaterial3: true,
           scaffoldBackgroundColor: const Color.fromRGBO(245, 247, 250, 1),
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
         ),
         home: const LoginPage(),
       ),
