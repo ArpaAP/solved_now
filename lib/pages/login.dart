@@ -67,19 +67,9 @@ class _LoginPageState extends State<LoginPage> {
                             return null;
                           },
                           decoration: InputDecoration(
-                            filled: true,
-                            fillColor: const Color.fromRGBO(235, 236, 243, 1),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            isDense: true,
-                            contentPadding: const EdgeInsets.symmetric(
-                              vertical: 10,
-                              horizontal: 10,
-                            ),
                             hintText: "Baekjoon OJ 아이디",
                           ),
+                          autocorrect: false,
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           onFieldSubmitted: (text) async {
                             final SharedPreferences prefs =

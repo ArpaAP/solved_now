@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
           ),
           child: Container(
             constraints: BoxConstraints(
-              minHeight: 100,
+              minHeight: MediaQuery.of(context).size.height,
               minWidth: double.infinity,
             ),
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
@@ -247,7 +247,7 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Expanded(
                       child: Card(
-                        color: Colors.grey[100],
+                        color: Theme.of(context).cardColor,
                         child: Container(
                           padding: const EdgeInsets.symmetric(
                             vertical: 12,
