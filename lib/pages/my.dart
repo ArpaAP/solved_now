@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:tailwind_colors/tailwind_colors.dart';
 
 class MyPage extends StatefulWidget {
@@ -13,12 +12,6 @@ class MyPage extends StatefulWidget {
 class _MyPageState extends State<MyPage> {
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
-        statusBarColor: Theme.of(context).primaryColorLight,
-      ),
-    );
-
     return Scaffold(
       body: SafeArea(
         child: Column(

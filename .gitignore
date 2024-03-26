@@ -29,3 +29,5 @@ doc/api/
 .idea/
 
 lib/firebase_options.dart
+
+.DS_Store

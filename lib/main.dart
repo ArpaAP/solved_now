@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -15,6 +16,25 @@ void main() async {
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  await FirebaseAppCheck.instance.activate(
+    // You can also use a `ReCaptchaEnterpriseProvider` provider instance as an
+    // argument for `webProvider`
+    webProvider: ReCaptchaV3Provider('recaptcha-v3-site-key'),
+    // Default provider for Android is the Play Integrity provider. You can use the "AndroidProvider" enum to choose
+    // your preferred provider. Choose from:
+    // 1. Debug provider
+    // 2. Safety Net provider
+    // 3. Play Integrity provider
+    androidProvider: AndroidProvider.debug,
+    // Default provider for iOS/macOS is the Device Check provider. You can use the "AppleProvider" enum to choose
+    // your preferred provider. Choose from:
+    // 1. Debug provider
+    // 2. Device Check provider
+    // 3. App Attest provider
+    // 4. App Attest provider with fallback to Device Check provider (App Attest provider is only available on iOS 14.0+, macOS 14.0+)
+    appleProvider: AppleProvider.appAttest,
   );
 
   // Pass all uncaught "fatal" errors from the framework to Crashlytics
@@ -56,7 +76,7 @@ class MyApp extends StatelessWidget {
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Solved Now',
         theme: ThemeData(
           fontFamily: "Pretendard",
           colorScheme: ColorScheme.fromSeed(
@@ -66,8 +86,6 @@ class MyApp extends StatelessWidget {
           primaryColorLight: const Color.fromRGBO(115, 230, 122, 1),
           useMaterial3: true,
           scaffoldBackgroundColor: const Color.fromRGBO(245, 247, 250, 1),
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
           cardColor: Colors.grey[100],
           inputDecorationTheme: InputDecorationTheme(
             filled: true,
@@ -80,6 +98,21 @@ class MyApp extends StatelessWidget {
             contentPadding: const EdgeInsets.symmetric(
               vertical: 10,
               horizontal: 10,
+            ),
+          ),
+          textTheme: const TextTheme(
+            headlineSmall: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+              height: 2.25,
+            ),
+            headlineMedium: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.bold,
+            ),
+            headlineLarge: TextStyle(
+              fontSize: 36,
+              fontWeight: FontWeight.bold,
             ),
           ),
           bottomNavigationBarTheme: BottomNavigationBarThemeData(
